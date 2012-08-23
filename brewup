@@ -1,0 +1,45 @@
+#!/bin/bash
+
+ROOT_UID=0
+E_NOTROOT=65
+
+if [[ "$UID" -eq $ROOT_UID ]]; then
+    echo "Must not be root when running this script."
+    exit $E_NOTROOT
+fi
+
+echo "Checking ..."
+
+brew update
+wait
+
+CAP=$(brew outdated &)
+wait
+
+if [[ -z $CAP ]]; then
+    echo "Nothing needs to be updated."
+else
+    echo "The following packages are outdated:"
+    echo "$CAP"
+
+    echo
+    read -p "Would you like to upgrade these packages? " -n 1 -r
+
+    if [[ $REPLY =~ ^[Yy]$ ]]; then
+        brew upgrade
+        wait
+
+        echo
+        echo "Packages upgraded."
+
+        echo
+        echo "Cleaning up ..."
+
+        brew cleanup
+        wait
+
+        exit
+    fi
+fi
+
+exit

@@ -1,0 +1,21 @@
+#!/bin/bash
+
+VIM_BUNDLE_DIR=~/.vim/bundle
+
+echo "Vim bundleups via Git!"
+echo "Starting pulls in Git dirs ..."
+
+cd $VIM_BUNDLE_DIR
+
+for d in *
+do
+    cd "$d"
+    if [[ -d ".git" ]]; then
+        echo "Pulling for $d"
+        git pull
+        wait
+    fi
+    cd ..
+done
+
+echo "Updating finished."
