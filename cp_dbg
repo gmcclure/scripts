@@ -1,0 +1,5 @@
+#!/bin/bash
+
+LIBPATH=~/lib/c/
+
+cp $LIBPATH/dbg.h .
