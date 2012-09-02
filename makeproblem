@@ -1,0 +1,20 @@
+#!/bin/bash
+
+if [[ -z $1 ]]; then
+    echo "Usage: makeproblem [DIRNAME]"
+    exit
+fi
+
+mkdir $1
+cd $1
+
+touch main.c
+
+cat > Makefile <<End_of_maketext
+CFLAGS=-Wall -g
+
+clean:
+    rm -f main
+End_of_maketext
+
+exit
