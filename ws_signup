@@ -3,18 +3,19 @@
 require 'mechanize'
 require 'pp'
 
-EEE_URL  = 'https://eee.uci.edu/myeee/'
-WS_URL   = 'http://writing.colostate.edu/'
+EEE_URL      = 'https://eee.uci.edu/myeee/'
+WS_URL       = 'http://writing.colostate.edu/'
 
 # Auth
-UCI_ID   = ''
-UCI_PASS = ''
-WS_ID    = ''
-WS_PASS  = ''
+UCI_ID       = ''
+UCI_PASS     = ''
+WS_ID        = ''
+WS_PASS      = ''
 
 # Class
-CLASS_ID = '25508'
-QUARTER  = 'F12'
+CLASS_ID     = ''
+QUARTER      = ''
+DEFAULT_PASS = ''
 
 def first_and_last_names(namestring)
   # name format must be LAST, FIRST
@@ -101,8 +102,8 @@ students.each do |student|
       f.FirstName = student_names[0]
       f.LastName = student_names[1]
       f.email = student[1] # email field isn't capitalized like the other form fields ...
-      f.StudentPassword = 'abc123'
-      f.Confirm = 'abc123'
+      f.StudentPassword = DEFAULT_PASS
+      f.Confirm = DEFAULT_PASS
       ws_page = ws_agent.submit(f, f.buttons.first)
     end
   else
