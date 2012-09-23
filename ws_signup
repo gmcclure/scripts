@@ -3,8 +3,18 @@
 require 'mechanize'
 require 'pp'
 
-EEE_URL = 'https://eee.uci.edu/myeee/'
-WS_URL  = 'http://writing.colostate.edu/'
+EEE_URL  = 'https://eee.uci.edu/myeee/'
+WS_URL   = 'http://writing.colostate.edu/'
+
+# Auth
+UCI_ID   = ''
+UCI_PASS = ''
+WS_ID    = ''
+WS_PASS  = ''
+
+# Class
+CLASS_ID = '25508'
+QUARTER  = 'F12'
 
 def first_and_last_names(namestring)
   # name format must be LAST, FIRST
@@ -25,15 +35,15 @@ end
 
 puts "Logging in."
 eee_page.form_with(:name => 'webauth_login_form') do |f|
-  f.ucinetid = ''
-  f.password = ''
+  f.ucinetid = UCI_ID
+  f.password = UCI_PASS
   eee_page = eee_agent.submit(f, f.buttons.first)
 end
 
 eee_page = eee_agent.get(EEE_URL)
 
 puts "Going to class dashboard."
-eee_page = eee_agent.page.link_with(:href => 'dashboard/F12/25508').click
+eee_page = eee_agent.page.link_with(:href => "dashboard/#{QUARTER}/#{CLASS_ID}").click
 
 puts "Going to student list."
 eee_page = eee_agent.page.link_with(:id => 'classmates-tab').click
@@ -58,13 +68,13 @@ puts
 puts "Logging into the Writing Studio."
 ws_page = ws_agent.get(WS_URL)
 ws_page.form_with(:name => 'loginform1') do |f|
-  f.Login = ''
-  f.Password = ''
+  f.Login = WS_ID
+  f.Password = WS_PASS
   ws_page = ws_agent.submit(f, f.buttons.first)
 end
 
-puts "Going to page for class 25508."
-ws_page = ws_agent.page.link_with(:text => %r{25508}).click
+puts "Going to page for class #{CLASS_ID}."
+ws_page = ws_agent.page.link_with(:text => %r{#{CLASS_ID}}).click
 
 puts "Going through the roster."
 ws_page = ws_agent.page.link_with(:text => %r{Class Roster}).click
@@ -90,8 +100,7 @@ students.each do |student|
     ws_page.form_with(:name => 'CFForm_2') do |f|
       f.FirstName = student_names[0]
       f.LastName = student_names[1]
-      # For some reason, the email field isn't capitalized like the other form fields ...
-      f.email = student[1]
+      f.email = student[1] # email field isn't capitalized like the other form fields ...
       f.StudentPassword = 'abc123'
       f.Confirm = 'abc123'
       ws_page = ws_agent.submit(f, f.buttons.first)
