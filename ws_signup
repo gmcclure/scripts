@@ -25,8 +25,8 @@ end
 
 puts "Logging in."
 eee_page.form_with(:name => 'webauth_login_form') do |f|
-  f.ucinetid = 'gmcclure'
-  f.password = 'QGqMqPi2'
+  f.ucinetid = ''
+  f.password = ''
   eee_page = eee_agent.submit(f, f.buttons.first)
 end
 
@@ -58,8 +58,8 @@ puts
 puts "Logging into the Writing Studio."
 ws_page = ws_agent.get(WS_URL)
 ws_page.form_with(:name => 'loginform1') do |f|
-  f.Login = 'gmcclure@uci.edu'
-  f.Password = 'uGri6A44'
+  f.Login = ''
+  f.Password = ''
   ws_page = ws_agent.submit(f, f.buttons.first)
 end
 
