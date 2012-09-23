@@ -101,7 +101,7 @@ students.each do |student|
     ws_page.form_with(:name => 'CFForm_2') do |f|
       f.FirstName = student_names[0]
       f.LastName = student_names[1]
-      f.email = student[1] # email field isn't capitalized like the other form fields ...
+      f.email = student[1] # email field isn't capitalized like other fields ... ¿por qué?
       f.StudentPassword = DEFAULT_PASS
       f.Confirm = DEFAULT_PASS
       ws_page = ws_agent.submit(f, f.buttons.first)
