@@ -13,9 +13,9 @@ WS_ID        = ''
 WS_PASS      = ''
 
 # Class
-CLASS_ID     = ''
-QUARTER      = ''
-DEFAULT_PASS = ''
+CLASS_ID     = '' # Five-digit class code
+QUARTER      = '' # Season + year: F12 = Fall 2012, 'M' for summer
+DEFAULT_PASS = '' # Default password for new students
 
 def first_and_last_names(namestring)
   # name format must be LAST, FIRST
@@ -70,7 +70,7 @@ puts "Logging into the Writing Studio."
 ws_page = ws_agent.get(WS_URL)
 ws_page.form_with(:name => 'loginform1') do |f|
   f.Login = WS_ID
-  f.Password = WS_PASS
+  f.PasswordString = WS_PASS
   ws_page = ws_agent.submit(f, f.buttons.first)
 end
 
