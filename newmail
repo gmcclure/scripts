@@ -1,0 +1,8 @@
+#!/bin/bash
+
+DEFAULT="gmcclure@gmail.com"
+ADD_SQL="insert into forwardings (source, destination) values ('$1', '$DEFAULT')"
+MYSQL_CMD="mysql -uroot -p mail -e \"$ADD_SQL\""
+MAIL_HOST="hermes"
+
+ssh -t $MAIL_HOST "$MYSQL_CMD"
