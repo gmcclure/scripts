@@ -1,0 +1,23 @@
+#!/bin/sh
+
+
+usage() { echo "Usage: $0 [-u] PROJECT" 1>&2; exit 1; }
+
+if [[ $1 = "-u" ]]; then
+    src=${PROJECT_DIR:?"PROJECT_DIR must be set to default project directory"}
+    dst=${ARCHIVE_DIR:?"ARCHIVE_DIR must be set to default archive directory"}
+    prj=$2
+else
+    src=${ARCHIVE_DIR:?"ARCHIVE_DIR must be set to default archive directory"}
+    dst=${PROJECT_DIR:?"PROJECT_DIR must be set to default project directory"}
+    prj=$1
+fi
+
+if [[ ! -e "$src/$prj" ]]; then
+    echo "Project doesn't exist."
+    usage
+fi
+
+mv "$src/$prj" $dst
+
+exit
